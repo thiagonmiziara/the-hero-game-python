@@ -18,8 +18,23 @@ class Character:
         return self.__level
     
     def show_details(self):
-        return f"\nName: {self.get_name()}\nLife: {self.get_life()}\nLevel: {self.get_level()}"  
-      
+        return f"\nName: {self.get_name()}\nLife: {self.get_life()}\nLevel: {self.get_level()}"
+    
+    def take_damage(self, damage):
+        self.__life -= damage
+        if self.__life <= 0:
+            self.__life = 0
+            print("===============================================================================")
+            print(f"\n{self.get_name()} has been defeated!\n")
+            print("===============================================================================")
+            
+    def attack(self, target):
+        damage = self.__level * 2
+        target.take_damage(damage)
+        print("===============================================================================")
+        print(f"\n{self.get_name()} attacks {target.get_name()} with {damage} points of damage!\n")
+        print("===============================================================================")
+        
 class Hero(Character):
     def __init__(self, name, life, level, skill):
         super().__init__(name, life, level)
@@ -59,8 +74,20 @@ class Game:
            
             input("Press Enter to continue attack...")
             choice = input("Choose your attack: (1) Attack (2) Especial Attack: ")
+
+            if choice == "1":
+                self.hero.attack(self.enemy)
+            else:
+                print("Void choice, choose again.")
         
-        
+        if self.hero.get_life() > 0:
+            print("**************************************\n")
+            print(f"{self.hero.get_name()} wins the game!\n")
+            print("**************************************")
+        else:
+            print("***************************************\n")
+            print(f"{self.enemy.get_name()} wins the game!\n")
+            print("***************************************")
 # Create game instance and start game 
 game = Game()
 game.start_game()
