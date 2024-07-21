@@ -43,8 +43,24 @@ class Enemy(Character):
     def show_details(self):
         return f"{super().show_details()}\nKind: {self.get_kind()}\n"
       
-hero = Hero(name="Batman", life=100, level=5, skill="fly")
-print(hero.show_details())
-
-enemy = Enemy(name="Joker", life=80, level=5, kind="Villain")
-print(enemy.show_details())
+class Game:
+    """ the game's orchestrator class """   
+    def __init__(self):
+        self.hero = Hero(name="Batman", life=100, level=5, skill="fly")
+        self.enemy = Enemy(name="Joker", life=80, level=5, kind="Villain")
+    
+    def start_game(self):
+        """ the game's start method """
+        print("Welcome to the Hero Game")
+        while self.hero.get_life() > 0 and self.enemy.get_life() > 0:
+            print("\nShwowing details")
+            print(f"\n{self.hero.show_details()}")
+            print(f"{self.enemy.show_details()}")
+           
+            input("Press Enter to continue attack...")
+            choice = input("Choose your attack: (1) Attack (2) Especial Attack: ")
+        
+        
+# Create game instance and start game 
+game = Game()
+game.start_game()
