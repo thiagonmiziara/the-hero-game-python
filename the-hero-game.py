@@ -1,3 +1,4 @@
+import random
 # character: class player
 # Hero: user controlled
 # Enemy: user opponent
@@ -29,7 +30,7 @@ class Character:
             print("===============================================================================")
             
     def attack(self, target):
-        damage = self.__level * 2
+        damage = random.randint(self.get_level() * 2, self.get_level() * 4)
         target.take_damage(damage)
         print("===============================================================================")
         print(f"\n{self.get_name()} attacks {target.get_name()} with {damage} points of damage!\n")
@@ -47,7 +48,7 @@ class Hero(Character):
         return f"{super().show_details()}\nSkill: {self.get_skill()}\n"  
 
     def especial_attack(self, target):
-        damage = self.get_level() * 5
+        damage = random.randint(self.get_level() * 5, self.get_level() * 8)
         target.take_damage(damage)
         print("===============================================================================")
         print(f"\n{self.get_name()} used *{self.get_skill()}* in {target.get_name()} with {damage} points of damage!\n")
